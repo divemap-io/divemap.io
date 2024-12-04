@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" href="/favicon.svg" sizes="any" type="image/svg+xml">
+    <title>divemap.io - We're Building Something New!</title>
+
+    <meta name="description" content="Discover the best dive sites around the world with our interactive map. Plan your next diving adventure and explore the underwater world!">
+    <meta property="og:title" content="Dive Sites Interactive Map - divemap.io">
+    <meta property="og:description" data-vmid="ogdescription" content="Discover the best dive sites around the world with our interactive map. Plan your next diving adventure and explore the underwater world!">
+    <meta property="og:image" data-vmid="ogimage" content="https://app.divemap.io/logo_rec.jpg">
+    <meta property="og:image:width" data-vmid="ogimagewidth" content="417">
+    <meta property="og:image:height" data-vmid="ogimageheight" content="185">
+    <meta property="og:image:alt" content="divemap.io logo">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://app.divemap.io">
+    <meta property="og:site_name" content="divemap.io">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Dive Sites Interactive Map - divemap.io">
+    <meta name="twitter:description" data-vmid="twitterdescription" content="Discover the best dive sites around the world with our interactive map. Plan your next diving adventure and explore the underwater world!">
+    <meta name="twitter:image" data-vmid="twitterimage" content="https://app.divemap.io/logo_rec.jpg">
+    <meta name="twitter:image:alt" content="divemap.io logo">
+    <meta name="twitter:url" content="https://app.divemap.io">
+    <meta name="twitter:site" content="@divemapio">
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* variables */
+        :root {
+            --color-bg: #162D30;
+            --color-text-primary: #BCE4F5;
+            --color-heading: #DADC35;
+            --color-accent: #09A3D3;
+            --color-button-bg: #BCE4F5;
+            --color-button-text: #1E3E42;
+            --color-button-hover-bg: #3A737D;
+            --color-button-hover-text: #162D30;
+        }
+
+        /* global styles */
+        body {
+            margin: 0;
+            font-family: 'Roboto', Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: var(--color-bg);
+            color: var(--color-text-primary);
+            text-align: center;
+            animation: fadeIn 1s ease-out;
+        }
+
+        /* animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            color: var(--color-heading);
+            font-size: 2.5rem;
+            line-height: 1.4;
+            margin: 0;
+        }
+
+        p {
+            color: var(--color-accent);
+            font-size: 1.2rem;
+            margin: 10px 0 20px;
+            max-width: 600px;
+        }
+
+        /* button styles */
+        a {
+            padding: 10px 20px;
+            text-decoration: none;
+            color: var(--color-button-text);
+            background: var(--color-button-bg);
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: background 0.3s, color 0.3s, transform 0.2s;
+        }
+
+        a:hover {
+            background: var(--color-button-hover-bg);
+            color: var(--color-button-hover-text);
+            transform: scale(1.05);
+        }
+
+        /* mobile responsiveness */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2rem;
+            }
+            p {
+                font-size: 1rem;
+            }
+            a {
+                font-size: 0.9rem;
+                padding: 8px 16px;
+            }
+        }
+
+        /* dark mode support */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: #1E3E42;
+                color: #BCE4F5;
+            }
+        }
+    </style>
+    <script defer data-domain="app.divemap.io" src="https://plausible.io/js/script.js"></script>
+</head>
+<body>
+    <main id="main-content" role="main" aria-label="Main content">
+        <h1>We're Building Something New!</h1>
+        <p>Our application is temporarily unavailable as we work on something exciting and innovative. Thank you for your patience and support!</p>
+        <a href="https://github.com/divemap-io" target="_blank" rel="noopener noreferrer">Follow Our Progress on GitHub</a>
+    </main>
+</body>
+</html>

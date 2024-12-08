@@ -5,21 +5,11 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 5.0"
     }
-    random = {
-      source  = "hashicorp/random"
-      version = "~> 3.0"
-    }
-  }
-
-  backend "s3" {
-    bucket = "terraform-divemapio-remote-backend"
-    key    = "landing-page/state.tfstate"
-    region = "eu-north-1"
   }
 }
 
 provider "aws" {
-  region = "eu-north-1"
+  region = var.aws_region
   default_tags {
     tags = {
       ManagedBy = "Terraform"

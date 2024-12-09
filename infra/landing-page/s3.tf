@@ -1,5 +1,12 @@
 locals {
-  landing_page_files_path = "../../src/dm-landingpage"
+  landing_page_files = fileset(var.landing_page_files_path, "*")
+
+  s3_files = [for file_name in local.landing_page_files :
+    {
+      file_name    = file_name
+      content_type = endswith(file_name, ".svg") ? "image/x-icon" : endswith(file_name, ".jpg") ? "image/jpeg" : "text/html"
+      etag         = filemd5("${var.landing_page_files_path}/${file_name}")
+  }]
 }
 
 resource "aws_s3_bucket" "landing_page" {
@@ -33,26 +40,11 @@ resource "aws_s3_bucket_website_configuration" "landing_page" {
   }
 }
 
-resource "aws_s3_object" "index_html" {
+resource "aws_s3_object" "landing_page_files" {
+  count        = length(local.s3_files)
   bucket       = aws_s3_bucket.landing_page.id
-  key          = "index.html"
-  source       = "${local.landing_page_files_path}/index.html"
-  etag         = filemd5("${local.landing_page_files_path}/index.html")
-  content_type = "text/html"
-}
-
-resource "aws_s3_object" "favicon_svg" {
-  bucket       = aws_s3_bucket.landing_page.id
-  key          = "favicon.svg"
-  source       = "${local.landing_page_files_path}/favicon.svg"
-  etag         = filemd5("${local.landing_page_files_path}/favicon.svg")
-  content_type = "image/x-icon"
-}
-
-resource "aws_s3_object" "logo_rec_jpg" {
-  bucket       = aws_s3_bucket.landing_page.id
-  key          = "logo_rec.jpg"
-  source       = "${local.landing_page_files_path}/logo_rec.jpg"
-  etag         = filemd5("${local.landing_page_files_path}/logo_rec.jpg")
-  content_type = "image/jpeg"
+  key          = local.s3_files[count.index].file_name
+  source       = "${var.landing_page_files_path}/${local.s3_files[count.index].file_name}"
+  etag         = local.s3_files[count.index].etag
+  content_type = local.s3_files[count.index].content_type
 }

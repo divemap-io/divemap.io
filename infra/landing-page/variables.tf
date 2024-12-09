@@ -12,3 +12,7 @@ variable "aws_region" {
   description = "AWS region. Use with caution."
   type        = string
 }
+
+variable "landing_page_files_path" {
+  type = string
+}

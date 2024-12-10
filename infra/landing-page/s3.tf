@@ -1,12 +1,12 @@
 locals {
   landing_page_files = fileset(var.landing_page_files_path, "*")
 
-  s3_files = [for file_name in local.landing_page_files :
+  s3_files = { for file_name in local.landing_page_files : file_name =>
     {
-      file_name    = file_name
       content_type = endswith(file_name, ".svg") ? "image/x-icon" : endswith(file_name, ".jpg") ? "image/jpeg" : "text/html"
       etag         = filemd5("${var.landing_page_files_path}/${file_name}")
-  }]
+    }
+  }
 }
 
 resource "aws_s3_bucket" "landing_page" {
@@ -41,10 +41,10 @@ resource "aws_s3_bucket_website_configuration" "landing_page" {
 }
 
 resource "aws_s3_object" "landing_page_files" {
-  count        = length(local.s3_files)
+  for_each     = local.s3_files
   bucket       = aws_s3_bucket.landing_page.id
-  key          = local.s3_files[count.index].file_name
-  source       = "${var.landing_page_files_path}/${local.s3_files[count.index].file_name}"
-  etag         = local.s3_files[count.index].etag
-  content_type = local.s3_files[count.index].content_type
+  key          = each.key
+  source       = "${var.landing_page_files_path}/${each.key}"
+  etag         = each.value.etag
+  content_type = each.value.content_type
 }

@@ -14,6 +14,19 @@ terraform {
   }
 }
 
+locals {
+  dns_records = {
+    divemapio = {
+      name    = "divemap.io",
+      content = module.static_website_landing_page.static_website_endpoint
+    },
+    app = {
+      name    = "app",
+      content = module.static_website_app_service.static_website_endpoint
+    }
+  }
+}
+
 ################################################################################
 # AWS provider
 ################################################################################
@@ -44,28 +57,20 @@ data "cloudflare_zone" "main" {
   }
 }
 
-resource "cloudflare_dns_record" "divemap_io" {
-  zone_id = data.cloudflare_zone.main.id
-  name    = "divemap.io"
-  content = module.static_website_divemap_io.static_website_endpoint
-  type    = "CNAME"
-  ttl     = 1
-  proxied = true
-}
-
-resource "cloudflare_dns_record" "app_divemap_io" {
-  zone_id = data.cloudflare_zone.main.id
-  name    = "app"
-  content = module.static_website_app_divemap_io.static_website_endpoint
-  type    = "CNAME"
-  ttl     = 1
-  proxied = true
+resource "cloudflare_dns_record" "main" {
+  for_each = local.dns_records
+  zone_id  = data.cloudflare_zone.main.id
+  name     = each.value.name
+  content  = each.value.content
+  type     = "CNAME"
+  ttl      = 1
+  proxied  = true
 }
 
 ################################################################################
 # divemap.io website
 ################################################################################
-module "static_website_divemap_io" {
+module "static_website_landing_page" {
   source = "./static-s3-website"
 
   domain_name            = var.landing_page_website_domain_name
@@ -76,7 +81,7 @@ module "static_website_divemap_io" {
 ################################################################################
 # app.divemap.io website
 ################################################################################
-module "static_website_app_divemap_io" {
+module "static_website_app_service" {
   source = "./static-s3-website"
 
   domain_name            = var.app_website_domain_name

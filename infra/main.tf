@@ -80,5 +80,5 @@ module "static_website_app_divemap_io" {
   source = "./static-s3-website"
 
   domain_name            = var.app_website_domain_name
-  static_page_files_path = var.landing_page_files_path
+  static_page_files_path = var.app_page_files_path
 }

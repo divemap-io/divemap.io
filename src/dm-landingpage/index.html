@@ -26,102 +26,205 @@
     <meta name="twitter:url" content="https://app.divemap.io">
     <meta name="twitter:site" content="@divemapio">
 
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* variables */
+        @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&family=Quicksand:wght@400;600&family=Sen:wght@400;700&display=swap');
+
         :root {
-            --color-bg: #162D30;
-            --color-text-primary: #BCE4F5;
-            --color-heading: #DADC35;
-            --color-accent: #09A3D3;
-            --color-button-bg: #BCE4F5;
-            --color-button-text: #1E3E42;
-            --color-button-hover-bg: #3A737D;
-            --color-button-hover-text: #162D30;
+            --color-bg:               #162D30;
+            --color-accent-yellow:    #DADC35;
+            --color-blue-light:       #BCE4F5;
+            --color-blue-mid:         #09A3D3;
+            --color-teal:             #3A737D;
+            --color-teal-dark:        #1E3E42;
+
+            --font-heading: 'Comfortaa', 'Trebuchet MS', sans-serif;
+            --font-body:    'Quicksand', 'Segoe UI', sans-serif;
+            --font-accent:  'Sen', 'Arial', sans-serif;
+
+            --text-base: 1rem;
+            --text-sm:   0.8rem;
+            --text-2xl:  2.441rem;
+            --text-3xl:  3.052rem;
+
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-6: 1.5rem;
+            --space-8: 2rem;
+
+            --radius-md:   8px;
+            --radius-full: 9999px;
+
+            --shadow-glow-blue: 0 0 16px rgba(9, 163, 211, 0.35);
+
+            --transition-normal: 250ms ease;
+            --transition-slow:   400ms ease;
+            --transition-bounce: 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+            --max-width-content: 720px;
         }
 
-        /* global styles */
+        *, *::before, *::after { box-sizing: border-box; }
+
         body {
             margin: 0;
-            font-family: 'Roboto', Arial, sans-serif;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
-            background: var(--color-bg);
-            color: var(--color-text-primary);
-            text-align: center;
-            animation: fadeIn 1s ease-out;
-        }
-
-        /* animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
+            min-height: 100vh;
+            padding: var(--space-8);
+            overflow: hidden;
+            font-family: var(--font-body);
+            font-size: var(--text-base);
+            color: var(--color-blue-light);
+            background-color: var(--color-bg);
+            background-image:
+                radial-gradient(ellipse 80% 60% at 15% 40%, rgba(9, 163, 211, 0.12) 0%, transparent 60%),
+                radial-gradient(ellipse 70% 50% at 85% 70%, rgba(58, 115, 125, 0.16) 0%, transparent 55%);
+            -webkit-font-smoothing: antialiased;
         }
 
         h1 {
-            color: var(--color-heading);
-            font-size: 2.5rem;
-            line-height: 1.4;
             margin: 0;
+            font-family: var(--font-heading);
+            font-size: var(--text-3xl);
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--color-accent-yellow);
         }
 
-        p {
-            color: var(--color-accent);
-            font-size: 1.2rem;
-            margin: 10px 0 20px;
-            max-width: 600px;
+        main {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            max-width: var(--max-width-content);
+            gap: var(--space-4);
         }
 
-        /* button styles */
-        a {
-            padding: 10px 20px;
+        main p { margin: 0; max-width: 52ch; }
+
+        .eyebrow {
+            font-family: var(--font-accent);
+            font-size: var(--text-sm);
+            color: var(--color-blue-mid);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .divider {
+            width: 40px;
+            height: 2px;
+            background: var(--color-blue-mid);
+            border-radius: var(--radius-full);
+            opacity: 0.5;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-3) var(--space-6);
+            font-family: var(--font-body);
+            font-size: var(--text-base);
+            font-weight: 600;
             text-decoration: none;
-            color: var(--color-button-text);
-            background: var(--color-button-bg);
-            border-radius: 5px;
-            font-weight: bold;
-            font-size: 1rem;
-            transition: background 0.3s, color 0.3s, transform 0.2s;
+            background-color: var(--color-blue-light);
+            color: var(--color-teal-dark);
+            border: 2px solid transparent;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition:
+                background-color var(--transition-normal),
+                color var(--transition-normal),
+                transform var(--transition-bounce),
+                box-shadow var(--transition-normal);
         }
 
-        a:hover {
-            background: var(--color-button-hover-bg);
-            color: var(--color-button-hover-text);
-            transform: scale(1.05);
+        .btn:hover {
+            background-color: var(--color-teal);
+            color: var(--color-bg);
+            box-shadow: var(--shadow-glow-blue);
+            transform: scale(1.03);
         }
 
-        /* mobile responsiveness */
+        .btn:active { transform: scale(0.98); }
+
+        /* ── Fade-in ───────────────────────────────────────────── */
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fade-in-up {
+            animation: fadeInUp var(--transition-slow) ease-out both;
+        }
+
+        /* ── Floating bubbles ──────────────────────────────────── */
+
+        .bubbles {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .bubble {
+            position: absolute;
+            bottom: -24px;
+            border-radius: 50%;
+            border: 1px solid rgba(188, 228, 245, 0.18);
+            background: rgba(9, 163, 211, 0.05);
+            animation: floatUp linear infinite;
+        }
+
+        .bubble:nth-child(1) { width: 12px; height: 12px; left:  8%; animation-duration: 13s; animation-delay:  0s; }
+        .bubble:nth-child(2) { width:  7px; height:  7px; left: 19%; animation-duration: 17s; animation-delay:  4s; }
+        .bubble:nth-child(3) { width: 18px; height: 18px; left: 31%; animation-duration: 11s; animation-delay:  1s; }
+        .bubble:nth-child(4) { width:  9px; height:  9px; left: 47%; animation-duration: 19s; animation-delay:  6s; }
+        .bubble:nth-child(5) { width: 22px; height: 22px; left: 60%; animation-duration: 10s; animation-delay:  2s; }
+        .bubble:nth-child(6) { width: 11px; height: 11px; left: 74%; animation-duration: 15s; animation-delay:  8s; }
+        .bubble:nth-child(7) { width:  6px; height:  6px; left: 85%; animation-duration: 14s; animation-delay:  3s; }
+        .bubble:nth-child(8) { width: 15px; height: 15px; left: 93%; animation-duration: 12s; animation-delay: 10s; }
+
+        @keyframes floatUp {
+            0%   { transform: translateY(0);      opacity: 0; }
+            8%   { opacity: 0.8; }
+            92%  { opacity: 0.4; }
+            100% { transform: translateY(-105vh); opacity: 0; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .animate-fade-in-up { animation: none; }
+            .bubble { animation: none; opacity: 0; }
+        }
+
         @media (max-width: 600px) {
-            h1 {
-                font-size: 2rem;
-            }
-            p {
-                font-size: 1rem;
-            }
-            a {
-                font-size: 0.9rem;
-                padding: 8px 16px;
-            }
-        }
-
-        /* dark mode support */
-        @media (prefers-color-scheme: dark) {
-            body {
-                background: #1E3E42;
-                color: #BCE4F5;
-            }
+            h1 { font-size: var(--text-2xl); }
         }
     </style>
     <script defer data-domain="app.divemap.io" src="https://plausible.io/js/script.js"></script>
 </head>
 <body>
-    <main id="main-content" role="main" aria-label="Main content">
-        <h1>We're Building Something New!</h1>
+    <div class="bubbles" aria-hidden="true">
+        <span class="bubble"></span>
+        <span class="bubble"></span>
+        <span class="bubble"></span>
+        <span class="bubble"></span>
+        <span class="bubble"></span>
+        <span class="bubble"></span>
+        <span class="bubble"></span>
+        <span class="bubble"></span>
+    </div>
+
+    <main id="main-content" role="main" aria-label="Main content" class="animate-fade-in-up">
+        <span class="eyebrow">Coming Soon</span>
+        <h1>We're Building<br>Something New!</h1>
+        <div class="divider" aria-hidden="true"></div>
         <p>Our application is temporarily unavailable as we work on something exciting and innovative. Thank you for your patience and support!</p>
-        <a href="https://github.com/divemap-io" target="_blank" rel="noopener noreferrer">Follow Our Progress on GitHub</a>
+        <a href="https://github.com/divemap-io" target="_blank" rel="noopener noreferrer" class="btn">Follow Our Progress on GitHub</a>
     </main>
 </body>
 </html>
